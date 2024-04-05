@@ -4,10 +4,7 @@
 #include <conio.h>
 #include "defs.h"
 
-void movePlayer(int x, int y)
-{
-    
-}
+
 
 struct targetPoint
 {
@@ -33,11 +30,44 @@ class Level
        }
 };
 
+//i'm sorry i'm retarded
+void renderLevel(std::vector<std::vector<char>> levelMap)
+{
+    int levelWidth = levelMap.size();
+    int levelHeight = levelMap[0].size();
+    
+    for(auto i = 0; i < levelWidth; i++)
+    {
+        for(auto j = 0; j < levelHeight; j++)
+        {
+            std::cout << levelMap[i][j];
+        }    
+        std::cout << "\n";
+    }
+}
 
+bool movePlayer(int dPX, int dPY, targetPoint pos, std::vector<std::vector<char>> currentMap)
+{
+    int newPosX = pos.x + dPX;
+    int newPosY = pos.y + dPY;
+    
+    switch(currentMap[newPosX][newPosY])
+    {
+        default:
+            break;
+        case ' ':
+            currentMap[pos.x][pos.y] = ' ';
+            currentMap[newPosX][newPosY] = '@';
+            break;
+            
+    }
+     
+}
 
-void game(int x, int y, targetPoint StartPos, std::vector<targetPoint> targets)
+void game(int x, int y, targetPoint StartPos, std::vector<targetPoint> targets, std::vector<std::vector<char>> levelMap)
 {
     system("cls");
+    renderLevel(levelMap);
     char movement;
     while(movement != 'm')
     {
@@ -48,34 +78,18 @@ void game(int x, int y, targetPoint StartPos, std::vector<targetPoint> targets)
                 std::cout << "invalid move" << '\n';
                 break;
             case 'w':
-                movePlayer(0, -1);
+                movePlayer(0, -1, StartPos, levelMap);
                 break;
             case 'a':
-                movePlayer(-1, 0);
+                movePlayer(-1, 0, StartPos, levelMap);
                 break;
             case 's':
-                movePlayer(0, 1);
+                movePlayer(0, 1, StartPos, levelMap);
                 break;
             case 'd':
-                movePlayer(1, 0);
+                movePlayer(1, 0, StartPos, levelMap);
                 break;
         }
-    }
-}
-
-//i'm sorry i'm retarded
-void renderLevel(std::vector<std::vector<char>> LevelMap)
-{
-    int levelWidth = LevelMap.size();
-    int levelHeight = LevelMap[0].size();
-    
-    for(auto i = 0; i < levelWidth; i++)
-    {
-        for(auto j = 0; j < levelHeight; j++)
-        {
-            std::cout << LevelMap[i][j];
-        }    
-        std::cout << "\n";
     }
 }
 
@@ -97,7 +111,7 @@ int main()
         }; 
         
     Level poz1(maplevel);
-    renderLevel(poz1.GetMap());
+    //renderLevel(poz1.GetMap());
        
     return 0;
 }
