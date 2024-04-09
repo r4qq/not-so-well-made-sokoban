@@ -3,3 +3,4 @@
 #define DOCK 'X'
 #define DBOX '+'
 #define P0 '@'
+#define WALL '*'

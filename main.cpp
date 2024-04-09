@@ -1,12 +1,12 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+//#include <algorithm>
 #include <conio.h>
 #include "defs.h"
 
 
 
-struct targetPoint
+struct positionPoint
 {
     int x;
     int y;
@@ -17,8 +17,8 @@ class Level
     std::vector<std::vector<char>> LevelMap; 
     bool IsDone;
     unsigned int StepCount;
-    std::vector<targetPoint> Targets;
-    targetPoint StartPos;
+    std::vector<positionPoint> Targets;
+    positionPoint StartPos;
     public:
        Level(std::vector<std::vector<char>> inMap)
        {
@@ -30,7 +30,6 @@ class Level
        }
 };
 
-//i'm sorry i'm retarded
 void renderLevel(std::vector<std::vector<char>> levelMap)
 {
     int levelWidth = levelMap.size();
@@ -46,7 +45,7 @@ void renderLevel(std::vector<std::vector<char>> levelMap)
     }
 }
 
-bool movePlayer(int dPX, int dPY, targetPoint pos, std::vector<std::vector<char>> currentMap)
+void movePlayer(int dPX, int dPY, positionPoint pos, std::vector<std::vector<char>> currentMap)
 {
     int newPosX = pos.x + dPX;
     int newPosY = pos.y + dPY;
@@ -55,42 +54,70 @@ bool movePlayer(int dPX, int dPY, targetPoint pos, std::vector<std::vector<char>
     {
         default:
             break;
-        case ' ':
-            currentMap[pos.x][pos.y] = ' ';
+
+        case AIR:
+            currentMap[pos.x][pos.y] = AIR;
             currentMap[newPosX][newPosY] = '@';
+            pos.x = newPosX;
+            pos.y = newPosY;
             break;
-            
+        case BOX:
+            switch (currentMap[newPosX + 1][newPosX + 1]) 
+            {
+                default:
+                    break;
+                case BOX:
+                    break;
+                case WALL:
+                    break;  
+                case AIR:
+                    currentMap[newPosX + 1][newPosY + 1] = '#';
+                    currentMap[newPosX][newPosY] = '@';
+                    currentMap[pos.x][pos.y] = ' ';
+                    break;
+                case DOCK:
+                    break;
+            }
     }
-     
 }
 
-void game(int x, int y, targetPoint StartPos, std::vector<targetPoint> targets, std::vector<std::vector<char>> levelMap)
+void game(positionPoint StartPos, std::vector<positionPoint> targets, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes)
 {
-    system("cls");
-    renderLevel(levelMap);
-    char movement;
-    while(movement != 'm')
+    positionPoint pozycja = StartPos;
+    bool isLevelDone = false;
+    while (isLevelDone != true)
     {
-        movement = getch();
-        switch(movement)
+        system("cls");
+        renderLevel(levelMap);
+        char movement;
+        while(movement != 'm')
         {
-            default:
-                std::cout << "invalid move" << '\n';
-                break;
-            case 'w':
-                movePlayer(0, -1, StartPos, levelMap);
-                break;
-            case 'a':
-                movePlayer(-1, 0, StartPos, levelMap);
-                break;
-            case 's':
-                movePlayer(0, 1, StartPos, levelMap);
-                break;
-            case 'd':
-                movePlayer(1, 0, StartPos, levelMap);
-                break;
-        }
+            movement = getch();
+            switch(movement)
+            {
+                default:
+                    std::cout << "invalid move" << '\n';
+                    break;
+                case 'w':
+                    movePlayer(0, -1, pozycja, levelMap);
+                    break;
+                case 'a':
+                    movePlayer(-1, 0, pozycja, levelMap);
+                    break;
+                case 's':
+                    movePlayer(0, 1, pozycja, levelMap);
+                    break;
+                case 'd':
+                    movePlayer(1, 0, pozycja, levelMap);
+                    break;
+            }
+            for (auto i = 0; i < doneBoxes.size(); i++)
+            {
+                int x = (levelMap[doneBoxes[i].x][doneBoxes[i].y] == DBOX) ? true : false;
+            }
+        }        
     }
+    
 }
 
 
