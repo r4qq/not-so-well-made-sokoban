@@ -66,7 +66,6 @@ void movePlayer(int dPX, int dPY, positionPoint pos, std::vector<std::vector<cha
     {
         default:
             break;
-
         case AIR:
             currentMap[pos.x][pos.y] = AIR;
             currentMap[newPosX][newPosY] = P0;
