@@ -1,8 +1,7 @@
 #include <iostream>
 #include <vector>
-//#include <algorithm>
 #include <conio.h>
-#include "defs.h"
+#include "defs.hpp"
 
 
 
@@ -94,11 +93,11 @@ void movePlayer(int dPX, int dPY, positionPoint pos, std::vector<std::vector<cha
     }
 }
 
-void game(positionPoint StartPos, std::vector<positionPoint> targets, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes)
+void game(positionPoint startPos, std::vector<positionPoint> targets, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes)
 {
-    positionPoint pozycja = StartPos;
-    bool isLevelDone = false;
-    while (isLevelDone != true)
+    positionPoint pozycja = startPos;
+    bool levelDone = false;
+    while (levelDone != true)
     {
         system("cls");
         renderLevel(levelMap);
@@ -124,7 +123,8 @@ void game(positionPoint StartPos, std::vector<positionPoint> targets, std::vecto
                     movePlayer(1, 0, pozycja, levelMap);
                     break;
             }
-        }        
+        }
+        levelDone = isLeveDone(levelMap, doneBoxes);
     }
 }
 
