@@ -30,6 +30,19 @@ class Level
        }
 };
 
+bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
+{
+    auto docksAmount = docks.size();
+    auto x = 0;
+    for (auto i = 0; i < docksAmount; i++)
+    {
+        if (levelMap[docks[i].x][docks[i].y] == DBOX)
+            x++;
+    }
+    bool isDone = (x == docksAmount) ? true : false;
+    return isDone; 
+}
+
 void renderLevel(std::vector<std::vector<char>> levelMap)
 {
     int levelWidth = levelMap.size();
@@ -57,7 +70,7 @@ void movePlayer(int dPX, int dPY, positionPoint pos, std::vector<std::vector<cha
 
         case AIR:
             currentMap[pos.x][pos.y] = AIR;
-            currentMap[newPosX][newPosY] = '@';
+            currentMap[newPosX][newPosY] = P0;
             pos.x = newPosX;
             pos.y = newPosY;
             break;
@@ -71,9 +84,9 @@ void movePlayer(int dPX, int dPY, positionPoint pos, std::vector<std::vector<cha
                 case WALL:
                     break;  
                 case AIR:
-                    currentMap[newPosX + 1][newPosY + 1] = '#';
-                    currentMap[newPosX][newPosY] = '@';
-                    currentMap[pos.x][pos.y] = ' ';
+                    currentMap[newPosX + 1][newPosY + 1] = BOX;
+                    currentMap[newPosX][newPosY] = P0;
+                    currentMap[pos.x][pos.y] = AIR;
                     break;
                 case DOCK:
                     break;
@@ -111,13 +124,8 @@ void game(positionPoint StartPos, std::vector<positionPoint> targets, std::vecto
                     movePlayer(1, 0, pozycja, levelMap);
                     break;
             }
-            for (auto i = 0; i < doneBoxes.size(); i++)
-            {
-                int x = (levelMap[doneBoxes[i].x][doneBoxes[i].y] == DBOX) ? true : false;
-            }
         }        
     }
-    
 }
 
 
