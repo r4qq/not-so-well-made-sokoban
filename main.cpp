@@ -42,18 +42,19 @@ public:
     {
         return StartPos;
     }
-
-
 };
 
 bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
-    auto docksAmount = docks.size();
-    auto x = 0;
+    int docksAmount = docks.size();
+    int x = 0;
     for (auto i = 0; i < docksAmount; i++)
     {
         if (levelMap[docks[i].x][docks[i].y] == DBOX)
+        {
             x++;
+        }
+
     }
     if (x == docksAmount) 
     {
@@ -65,7 +66,7 @@ bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoi
     }
 }
 
-void renderLevel(std::vector<std::vector<char>> levelMap)
+void renderLevel(std::vector<std::vector<char>> levelMap, int stepCount)
 {
     int levelWidth = levelMap.size();
     int levelHeight = levelMap[0].size();
@@ -78,9 +79,16 @@ void renderLevel(std::vector<std::vector<char>> levelMap)
         }
         std::cout << "\n";
     }
+    std::cout << stepCount << '\n';
 }
 
-void movePlayer(int dPX, int dPY, positionPoint& pos, std::vector<std::vector<char>>& currentMap)
+void renderDebugMenu(positionPoint& pos)
+{
+    std::cout << "x: " << pos.x + 1 << '\n';
+    std::cout << "y: " << pos.y + 1 << '\n';
+}
+
+void movePlayer(int dPX, int dPY, positionPoint& pos, std::vector<std::vector<char>>& currentMap, int& stepCount)
 {
     int newPosX, newPosY;
     newPosX = pos.x + dPX;
@@ -122,51 +130,54 @@ void movePlayer(int dPX, int dPY, positionPoint& pos, std::vector<std::vector<ch
     {
         pos.x = newPosX;
         pos.y = newPosY;
+        stepCount--;
     }
 }
 
-void game(positionPoint startPos, std::vector<positionPoint> targets, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes)
+void game(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes, int stepCount)
 {
-    std::vector<std::vector<char>> localLevelMap = levelMap;
-    positionPoint pozycja = startPos;
     bool levelDone = false;
     char movement = NULL;
-        while (!levelDone)
+    while (!levelDone)
+    {
+        system("cls");
+        renderLevel(levelMap, stepCount);
+        renderDebugMenu(startPos);
+        movement = _getch();
+        switch (movement)
         {
-            system("cls");
-            renderLevel(localLevelMap);
-            movement = _getch();
-            switch (movement)
-            {
-            default:
-                std::cout << "invalid move" << '\n';
-                break;
-            case 'w':
-                movePlayer(-1, 0, pozycja, localLevelMap);
-                levelDone = isLeveDone(localLevelMap, doneBoxes);
-                break;
-            case 'a':
-                movePlayer(0, -1, pozycja, localLevelMap);
-                levelDone = isLeveDone(localLevelMap, doneBoxes);
-                break;
-            case 's':
-                movePlayer(1, 0, pozycja, localLevelMap);
-                levelDone = isLeveDone(localLevelMap, doneBoxes);
-                break;
-            case 'd':
-                movePlayer(0, 1, pozycja, localLevelMap);
-                levelDone = isLeveDone(localLevelMap, doneBoxes);
-
-                break;
-            case 'm':
-                levelDone = true;
-            }
+        default:
+            std::cout << "invalid move" << '\n';
+            break;
+        case 'w':
+            movePlayer(-1, 0, startPos, levelMap, stepCount);
+            levelDone = isLeveDone(levelMap, doneBoxes);
+            break;
+        case 'a':
+            movePlayer(0, -1, startPos, levelMap, stepCount);
+            levelDone = isLeveDone(levelMap, doneBoxes);
+            break;
+        case 's':
+            movePlayer(1, 0, startPos, levelMap, stepCount);
+            levelDone = isLeveDone(levelMap, doneBoxes);
+            break;
+        case 'd':
+            movePlayer(0, 1, startPos, levelMap, stepCount);
+            levelDone = isLeveDone(levelMap, doneBoxes);
+            break;
+        case 'm':
+            levelDone = true;
         }
-
+        if (stepCount == 0) 
+        {
+            levelDone = true;
+        }
+    }
 }
 
 int main()
 {
+    //test level data
     positionPoint pozycjaStartowa;
     pozycjaStartowa.x = 5;
     pozycjaStartowa.y = 4;
@@ -187,9 +198,12 @@ int main()
         {3, 3},
         {2, 5}
     };
+    
+    Level poz1(maplevel, 30, targety, pozycjaStartowa);
 
-    Level poz1(maplevel, 50, targety, pozycjaStartowa);
-    game(poz1.GetStartPos(), poz1.GetTargets(), poz1.GetMap(), poz1.GetTargets());
+
+    //main game loop
+    game(poz1.GetStartPos(), poz1.GetMap(), poz1.GetTargets(), poz1.GetStepCount());
 
     return 0;
 }
