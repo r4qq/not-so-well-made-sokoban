@@ -101,10 +101,8 @@ void movePlayer(int dPX, int dPY, positionPoint& pos, std::vector<std::vector<ch
         switch (currentMap[newPosX + dPX][newPosY + dPY])
         {
         default:
-            movementMade = false;
             break;
         case BOX:
-            movementMade = false;
             break;
         case AIR:
             currentMap[pos.x][pos.y] = AIR;
@@ -132,11 +130,8 @@ void game(positionPoint startPos, std::vector<positionPoint> targets, std::vecto
     std::vector<std::vector<char>> localLevelMap = levelMap;
     positionPoint pozycja = startPos;
     bool levelDone = false;
-    while (levelDone != true)
-    {
-
-        char movement = NULL;
-        while (movement != 'm')
+    char movement = NULL;
+        while (!levelDone)
         {
             system("cls");
             renderLevel(localLevelMap);
@@ -148,23 +143,25 @@ void game(positionPoint startPos, std::vector<positionPoint> targets, std::vecto
                 break;
             case 'w':
                 movePlayer(-1, 0, pozycja, localLevelMap);
+                levelDone = isLeveDone(localLevelMap, doneBoxes);
                 break;
             case 'a':
                 movePlayer(0, -1, pozycja, localLevelMap);
+                levelDone = isLeveDone(localLevelMap, doneBoxes);
                 break;
             case 's':
                 movePlayer(1, 0, pozycja, localLevelMap);
+                levelDone = isLeveDone(localLevelMap, doneBoxes);
                 break;
             case 'd':
                 movePlayer(0, 1, pozycja, localLevelMap);
+                levelDone = isLeveDone(localLevelMap, doneBoxes);
+
                 break;
             case 'm':
                 levelDone = true;
             }
-
-            levelDone = isLeveDone(levelMap, doneBoxes);
         }
-    }
 
 }
 
