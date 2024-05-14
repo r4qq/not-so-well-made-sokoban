@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -46,21 +47,19 @@ public:
 
 bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
+    //if(std::all_of(docks.begin(), docks.end(), [&levelMap](const auto& dock)))
     int docksAmount = docks.size();
-    int x = 0;
-    for (auto i = 0; i < docksAmount; i++)
+    int doneBoxes = 0;
+    for (int i = 0; i < docksAmount; i++)
     {
         if (levelMap[docks[i].x][docks[i].y] == DBOX)
-        {
-            x++;
-        }
-
+            doneBoxes++;
     }
-    if (x == docksAmount) 
+    if (doneBoxes == docksAmount)
     {
         return true;
     }
-    else 
+    else
     {
         return false;
     }
@@ -99,7 +98,7 @@ void movePlayer(int dPX, int dPY, positionPoint& pos, std::vector<std::vector<ch
     {
     default:
         break;
-    
+
     case AIR:
         currentMap[pos.x][pos.y] = AIR;
         currentMap[newPosX][newPosY] = P0;
@@ -168,7 +167,7 @@ void game(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::
         case 'm':
             levelDone = true;
         }
-        if (stepCount == 0) 
+        if (stepCount == 0)
         {
             levelDone = true;
         }
@@ -196,10 +195,10 @@ int main()
 
     std::vector<positionPoint> targety{
         {3, 3},
-        {2, 5}
+        {5, 2}
     };
-    
-    Level poz1(maplevel, 30, targety, pozycjaStartowa);
+
+    Level poz1(maplevel, 40, targety, pozycjaStartowa);
 
 
     //main game loop
