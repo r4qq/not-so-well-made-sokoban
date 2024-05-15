@@ -1,8 +1,8 @@
-#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <conio.h>
+
 #include "defs.hpp"
 
 struct positionPoint
@@ -47,7 +47,6 @@ public:
 
 bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
-    //if(std::all_of(docks.begin(), docks.end(), [&levelMap](const auto& dock)))
     int docksAmount = docks.size();
     int doneBoxes = 0;
     for (int i = 0; i < docksAmount; i++)
