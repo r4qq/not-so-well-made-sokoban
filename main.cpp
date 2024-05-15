@@ -78,11 +78,13 @@ void renderLevel(std::vector<std::vector<char>> levelMap, int stepCount)
         }
         std::cout << "\n";
     }
+    std::cout << "------------------------" << '\n';
     std::cout << stepCount << '\n';
 }
 
 void renderDebugMenu(positionPoint& pos)
 {
+    std::cout << "------------------------" << '\n';
     std::cout << "x: " << pos.x + 1 << '\n';
     std::cout << "y: " << pos.y + 1 << '\n';
 }
@@ -168,9 +170,7 @@ void game(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::
             levelDone = true;
         }
         if (stepCount == 0)
-        {
             levelDone = true;
-        }
     }
 }
 
