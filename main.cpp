@@ -19,13 +19,13 @@ class Level
     std::vector<positionPoint> Targets;
     positionPoint StartPos;
 public:
-    Level(std::vector<std::vector<char>> inMap, int inStepCount, std::vector<positionPoint> inTargets, positionPoint inStartPos)
+    Level(std::vector<std::vector<char>> inMap, int inStepCount)
     {
         LevelMap = inMap;
         IsDone = false;
         StepCount = inStepCount;
-        Targets = inTargets;
-        StartPos = inStartPos;
+        GetStartPositionFromMap(LevelMap,StartPos);
+        GetTargetsFromMap(LevelMap, Targets);
     }
     std::vector<std::vector<char>> GetMap()
     {
@@ -42,6 +42,33 @@ public:
     positionPoint GetStartPos()
     {
         return StartPos;
+    }
+private:
+    void GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets)
+    {
+        auto a = 0;
+        for (auto i = 0; i < Map.size(); i++)
+        {
+            for (auto j = 0; j < Map[i].size(); j++)
+            {
+                if (Map[i][j] == DOCK)
+                    Targets.push_back({ i, j });
+            }
+        }
+    }
+    void GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint& StartPos)
+    {
+        for (auto i = 0; i < Map.size(); i++)
+        {
+            for (auto j = 0; j < Map[i].size(); j++)
+            {
+                if (Map[i][j] == P0)
+                {
+                    StartPos = { i, j };
+                    return;
+                }
+            }
+        }  
     }
 };
 
@@ -176,9 +203,6 @@ void game(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::
 int main()
 {
     //test level data
-    positionPoint pozycjaStartowa;
-    pozycjaStartowa.x = 5;
-    pozycjaStartowa.y = 4;
     std::vector<std::vector<char>> maplevel{
         {'*','*','*','*','*','*','*','*','*','*'},
         {'*','*','*','*','*','*','*','*','*','*'},
@@ -192,16 +216,12 @@ int main()
         {'*','*','*','*','*','*','*','*','*','*'}
     };
 
-    std::vector<positionPoint> targety{
-        {3, 3},
-        {5, 2}
-    };
-
-    Level poz1(maplevel, 40, targety, pozycjaStartowa);
+    //test level
+    Level TestLevel(maplevel, 40);
 
 
     //main game loop
-    game(poz1.GetStartPos(), poz1.GetMap(), poz1.GetTargets(), poz1.GetStepCount());
+    game(TestLevel.GetStartPos(), TestLevel.GetMap(), TestLevel.GetTargets(), TestLevel.GetStepCount());
 
     return 0;
 }
