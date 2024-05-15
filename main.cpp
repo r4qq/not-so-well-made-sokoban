@@ -74,14 +74,13 @@ private:
 
 bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
-    int docksAmount = docks.size();
     int doneBoxes = 0;
-    for (int i = 0; i < docksAmount; i++)
+    for (int i = 0; i < docks.size(); i++)
     {
         if (levelMap[docks[i].x][docks[i].y] == DBOX)
             doneBoxes++;
     }
-    if (doneBoxes == docksAmount)
+    if (doneBoxes == docks.size())
     {
         return true;
     }
@@ -203,7 +202,8 @@ void game(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::
 int main()
 {
     //test level data
-    std::vector<std::vector<char>> maplevel{
+    std::vector<std::vector<char>> maplevel
+    {
         {'*','*','*','*','*','*','*','*','*','*'},
         {'*','*','*','*','*','*','*','*','*','*'},
         {'*','*','*','*',' ',' ','*','*','*','*'},
