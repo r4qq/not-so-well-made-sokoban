@@ -4,3 +4,9 @@
 #define DBOX '+'
 #define P0 '@'
 #define WALL '*'
+
+struct positionPoint
+{
+    int x;
+    int y;
+};

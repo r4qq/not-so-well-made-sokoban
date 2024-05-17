@@ -3,74 +3,7 @@
 #include <vector>
 #include <conio.h>
 
-#include "defs.hpp"
-
-struct positionPoint
-{
-    int x;
-    int y;
-};
-
-class Level
-{
-    std::vector<std::vector<char>> LevelMap;
-    bool IsDone;
-    unsigned int StepCount;
-    std::vector<positionPoint> Targets;
-    positionPoint StartPos;
-public:
-    Level(std::vector<std::vector<char>> inMap, int inStepCount)
-    {
-        LevelMap = inMap;
-        IsDone = false;
-        StepCount = inStepCount;
-        GetStartPositionFromMap(LevelMap,StartPos);
-        GetTargetsFromMap(LevelMap, Targets);
-    }
-    std::vector<std::vector<char>> GetMap()
-    {
-        return LevelMap;
-    }
-    int GetStepCount()
-    {
-        return StepCount;
-    }
-    std::vector<positionPoint> GetTargets()
-    {
-        return Targets;
-    }
-    positionPoint GetStartPos()
-    {
-        return StartPos;
-    }
-private:
-    void GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets)
-    {
-        auto a = 0;
-        for (auto i = 0; i < Map.size(); i++)
-        {
-            for (auto j = 0; j < Map[i].size(); j++)
-            {
-                if (Map[i][j] == DOCK)
-                    Targets.push_back({ i, j });
-            }
-        }
-    }
-    void GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint& StartPos)
-    {
-        for (auto i = 0; i < Map.size(); i++)
-        {
-            for (auto j = 0; j < Map[i].size(); j++)
-            {
-                if (Map[i][j] == P0)
-                {
-                    StartPos = { i, j };
-                    return;
-                }
-            }
-        }  
-    }
-};
+#include "./Level.hpp"
 
 bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
@@ -110,6 +43,7 @@ void renderLevel(std::vector<std::vector<char>> levelMap, int stepCount)
 void renderDebugMenu(positionPoint& pos)
 {
     std::cout << "------------------------" << '\n';
+    std::cout << "ddddd" << '\n';
     std::cout << "x: " << pos.x + 1 << '\n';
     std::cout << "y: " << pos.y + 1 << '\n';
 }
