@@ -1,4 +1,4 @@
-Just don't look at it pls
+Just don't look at it pls 
 It's really not-so-good-sokoban
 It's just for learning purposes
 
