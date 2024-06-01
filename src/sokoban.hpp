@@ -1,3 +1,5 @@
+#pragma once
+
 #define AIR ' '
 #define BOX '#'
 #define DOCK 'X'

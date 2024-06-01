@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Level.hpp"
 
 Level::Level(std::vector<std::vector<char>> inMap, int inStepCount)
@@ -31,7 +33,6 @@ positionPoint Level::GetStartPos()
 
 void Level::GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets)
 {
-auto a = 0;
 for (auto i = 0; i < Map.size(); i++)
 {
     for (auto j = 0; j < Map[i].size(); j++)

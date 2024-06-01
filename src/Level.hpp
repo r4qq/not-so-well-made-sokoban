@@ -1,4 +1,7 @@
-#include "./sokoban.hpp"
+#pragma once
+
+#include "sokoban.hpp"
+
 #include <vector>
 
 class Level

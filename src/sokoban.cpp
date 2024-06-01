@@ -3,7 +3,8 @@
 #include <vector>
 #include <conio.h>
 
-#include "./Level.hpp"
+//#include "Level.hpp"
+#include "Game.hpp"
 
 bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
@@ -25,12 +26,9 @@ bool isLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoi
 
 void renderLevel(std::vector<std::vector<char>> levelMap, int stepCount)
 {
-    int levelWidth = levelMap.size();
-    int levelHeight = levelMap[0].size();
-
-    for (auto i = 0; i < levelWidth; i++)
+    for (auto i = 0; i < levelMap.size(); i++)
     {
-        for (auto j = 0; j < levelHeight; j++)
+        for (auto j = 0; j < levelMap[0].size(); j++)
         {
             std::cout << levelMap[i][j];
         }
@@ -135,27 +133,7 @@ void game(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::
 
 int main()
 {
-    //test level data
-    std::vector<std::vector<char>> maplevel
-    {
-        {'*','*','*','*','*','*','*','*','*','*'},
-        {'*','*','*','*','*','*','*','*','*','*'},
-        {'*','*','*','*',' ',' ','*','*','*','*'},
-        {'*','*','*','X',' ','#','*','*','*','*'},
-        {'*','*','*',' ',' ',' ',' ','*','*','*'},
-        {'*','*','X',' ','@',' ',' ','*','*','*'},
-        {'*','*','*',' ','#','*','*','*','*','*'},
-        {'*','*','*',' ',' ','*','*','*','*','*'},
-        {'*','*','*','*','*','*','*','*','*','*'},
-        {'*','*','*','*','*','*','*','*','*','*'}
-    };
-
-    //test level
-    Level TestLevel(maplevel, 40);
-
-
-    //main game loop
-    game(TestLevel.GetStartPos(), TestLevel.GetMap(), TestLevel.GetTargets(), TestLevel.GetStepCount());
+    Game Gra;
 
     return 0;
 }
