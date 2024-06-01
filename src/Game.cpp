@@ -57,7 +57,6 @@ void Game::DrawBanner()
 
 void Game::DrawMenu()
 {
-    //TODO: huj nie działa 
    system("cls");
    unsigned int wybor;
    DrawBanner();
