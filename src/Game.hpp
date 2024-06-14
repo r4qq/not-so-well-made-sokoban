@@ -1,4 +1,3 @@
-
 #include "Level.hpp"
 #include <vector>
 

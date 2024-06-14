@@ -65,6 +65,7 @@ void Game::DrawMenu()
    {
         std::cout << "    " << "Poziom " << i + 1 << '\n'; 
    }     
+   std::cout << '>';
    std::cin >> wybor;
    switch (wybor) 
    {
@@ -198,12 +199,12 @@ void Game::RenderLevel(std::vector<std::vector<char>> levelMap, int stepCount)
         std::cout << "\n";
     }
     std::cout << "------------------------" << '\n';
-    std::cout << stepCount << '\n';
+    std::cout << "Steps: " << stepCount << '\n';
+    std::cout << "------------------------" << '\n';
 }
 
 void Game::RenderDebugMenu(positionPoint& pos)
 {
-    std::cout << "------------------------" << '\n';
     std::cout << "ddddd" << '\n';
     std::cout << "x: " << pos.x + 1 << '\n';
     std::cout << "y: " << pos.y + 1 << '\n';

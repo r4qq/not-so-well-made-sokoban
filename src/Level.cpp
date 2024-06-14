@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Level.hpp"
 
 Level::Level(std::vector<std::vector<char>> inMap, int inStepCount)
