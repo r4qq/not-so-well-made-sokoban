@@ -135,7 +135,7 @@ void Game::PlayerMovement(int dPX, int dPY, positionPoint& pos, std::vector<std:
  {
     bool levelDone = false;
     char movement = NULL;
-    while (!levelDone)
+    while (true)
     {
         system("cls");
         RenderLevel(levelMap, stepCount);
