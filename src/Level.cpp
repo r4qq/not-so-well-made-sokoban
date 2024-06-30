@@ -9,12 +9,12 @@ Level::Level(std::vector<std::vector<char>> inMap, int inStepCount)
     GetTargetsFromMap(LevelMap, Targets);
 }
 
-std::vector<std::vector<char>> Level::GetMap()
+std::vector<std::vector<char>> Level::GetMap(void)
 {
     return LevelMap;
 }
 
-int Level::GetStepCount()
+int Level::GetStepCount(void)
 {
     return StepCount;
 }
@@ -24,16 +24,16 @@ std::vector<positionPoint> Level::GetTargets()
     return Targets;
 }
 
-positionPoint Level::GetStartPos()
+positionPoint Level::GetStartPos(void)
 {
-        return StartPos;
+    return StartPos;
 }
 
 void Level::GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets)
 {
-for (auto i = 0; i < Map.size(); i++)
+for (int i = 0; i < (int)(Map.size()); i++)
 {
-    for (auto j = 0; j < Map[i].size(); j++)
+    for (int j = 0; j < (int)(Map[i].size()); j++)
         {
             if (Map[i][j] == DOCK)
                 Targets.push_back({ i, j });
@@ -43,9 +43,9 @@ for (auto i = 0; i < Map.size(); i++)
 
 void Level::GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint& StartPos)
 {
-    for (auto i = 0; i < Map.size(); i++)
+    for (int i = 0; i < (int)(Map.size()); i++)
     {
-        for (auto j = 0; j < Map[i].size(); j++)
+        for (int j = 0; j < (int)(Map[i].size()); j++)
         {
             if (Map[i][j] == P0)
             {

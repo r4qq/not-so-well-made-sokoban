@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-int main()
+int main(void)
 {
     Game Gra;
     return 0;

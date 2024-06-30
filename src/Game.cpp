@@ -7,23 +7,23 @@
 #include <iostream>
 #include <vector>
 
-Game::Game()
+Game::Game(void)
 {
     InitalizeGame();
 }
 
-void Game::InitalizeGame()
+void Game::InitalizeGame(void)
 {
     AddLevels();
     DrawMenu();
 }
 
-std::vector<Level> Game::GetLevels()
+std::vector<Level> Game::GetLevels(void)
 {
     return LevelList;
 }
 
-void Game::AddLevels()
+void Game::AddLevels(void)
 {
     std::vector<std::vector<char>> maplevel
     {
@@ -45,7 +45,7 @@ void Game::AddLevels()
     LevelList.push_back(TestLevel);
 }
 
-void Game::DrawBanner()
+void Game::DrawBanner(void)
 {
     std::cout << "       .dMMMb  .aMMMb  dMP dMP .aMMMb  dMMMMb  .aMMMb  dMMMMb" << '\n'; 
     std::cout << "      dMP\" VP dMP\"dMP dMP.dMP dMP\"dMP dMP\"dMP dMP\"dMP dMP dMP" << '\n'; 
@@ -55,13 +55,13 @@ void Game::DrawBanner()
                                                           
 }
 
-void Game::DrawMenu()
+void Game::DrawMenu(void)
 {
    system("cls");
    unsigned int wybor;
    DrawBanner();
    std::cout  << '\n';
-   for (int i = 0; i < LevelList.size(); i++) 
+   for (int i = 0; i < (int)LevelList.size(); i++) 
    {
         std::cout << "    " << "Poziom " << i + 1 << '\n'; 
    }     
@@ -72,7 +72,7 @@ void Game::DrawMenu()
     case 0:
         return;
     default: 
-        if ((wybor - 1 > LevelList.size())) 
+        if ((wybor - 1 > (int)LevelList.size())) 
         { 
             std::cout << "Nie ma takiego wyboru" << '\t';
             DrawMenu();
@@ -133,12 +133,12 @@ void Game::PlayerMovement(int dPX, int dPY, positionPoint& pos, std::vector<std:
 
  void Game::GameLoop(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes, int stepCount)
  {
-    bool levelDone = false;
+    bool levelDone;
     char movement = NULL;
     while (true)
     {
         system("cls");
-        RenderLevel(levelMap, stepCount);
+        RenderLevelDebug(levelMap, stepCount);
         RenderDebugMenu(startPos);
         movement = _getch();
         switch (movement)
@@ -173,12 +173,12 @@ void Game::PlayerMovement(int dPX, int dPY, positionPoint& pos, std::vector<std:
 bool Game::IsLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
     int doneBoxes = 0;
-    for (int i = 0; i < docks.size(); i++)
+    for (int i = 0; i < (int)docks.size(); i++)
     {
         if (levelMap[docks[i].x][docks[i].y] == DBOX)
             doneBoxes++;
     }
-    if (doneBoxes == docks.size())
+    if (doneBoxes == (int)docks.size())
     {
         return true;
     }
@@ -188,11 +188,11 @@ bool Game::IsLeveDone(std::vector<std::vector<char>> levelMap, std::vector<posit
     }
 }
 
-void Game::RenderLevel(std::vector<std::vector<char>> levelMap, int stepCount)
+void Game::RenderLevelDebug(std::vector<std::vector<char>> levelMap, int stepCount)
 {
-    for (auto i = 0; i < levelMap.size(); i++)
+    for (auto i = 0; i < (int)levelMap.size(); i++)
     {
-        for (auto j = 0; j < levelMap[0].size(); j++)
+        for (auto j = 0; j < (int)levelMap[0].size(); j++)
         {
             std::cout << levelMap[i][j];
         }

@@ -11,12 +11,13 @@ class Level
     unsigned int StepCount;
     std::vector<positionPoint> Targets;
     positionPoint StartPos;
+    
 public:
     Level(std::vector<std::vector<char>> inMap, int inStepCount);
-    std::vector<std::vector<char>> GetMap();
-    int GetStepCount();
-    std::vector<positionPoint> GetTargets();
-    positionPoint GetStartPos();
+    std::vector<std::vector<char>> GetMap(void);
+    int GetStepCount(void);
+    std::vector<positionPoint> GetTargets(void);
+    positionPoint GetStartPos(void);
 
 private:
     void GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets);
