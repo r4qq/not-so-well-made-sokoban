@@ -85,7 +85,7 @@ void Game::DrawMenu(void)
    }
 }
 
-void Game::PlayerMovement(int dPX, int dPY, positionPoint& pos, std::vector<std::vector<char>>& currentMap, int& stepCount)
+void Game::PlayerMovement(int dPX, int dPY, positionPoint &pos, std::vector<std::vector<char>> &currentMap, int &stepCount)
 {
     int newPosX, newPosY;
     newPosX = pos.x + dPX;
@@ -203,7 +203,7 @@ void Game::RenderLevelDebug(std::vector<std::vector<char>> levelMap, int stepCou
     std::cout << "------------------------" << '\n';
 }
 
-void Game::RenderDebugMenu(positionPoint& pos)
+void Game::RenderDebugMenu(positionPoint &pos)
 {
     std::cout << "ddddd" << '\n';
     std::cout << "x: " << pos.x + 1 << '\n';

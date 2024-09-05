@@ -20,6 +20,6 @@ public:
     positionPoint GetStartPos(void);
 
 private:
-    void GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets);
-    void GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint& StartPos);
+    void GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint> &Targets);
+    void GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint &StartPos);
 };

@@ -18,6 +18,5 @@ Game.o: .\src\Game.cpp .\src\Game.hpp .\src\Level.hpp
 	$(CXX) $(CXXFLAGS) -c .\src\Game.cpp 
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	del $(OBJS)
 
-.PHONY: all clean

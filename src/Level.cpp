@@ -29,7 +29,7 @@ positionPoint Level::GetStartPos(void)
     return StartPos;
 }
 
-void Level::GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint>& Targets)
+void Level::GetTargetsFromMap(std::vector<std::vector<char>> Map, std::vector<positionPoint> &Targets)
 {
 for (int i = 0; i < (int)(Map.size()); i++)
 {
@@ -41,7 +41,7 @@ for (int i = 0; i < (int)(Map.size()); i++)
     }
 }
 
-void Level::GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint& StartPos)
+void Level::GetStartPositionFromMap(std::vector<std::vector<char>> Map, positionPoint &StartPos)
 {
     for (int i = 0; i < (int)(Map.size()); i++)
     {
