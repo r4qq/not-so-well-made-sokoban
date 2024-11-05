@@ -25,7 +25,7 @@ std::vector<Level> Game::GetLevels(void)
 
 void Game::AddLevels(void)
 {
-    std::vector<std::vector<char>> maplevel
+    std::vector<std::vector<char>> TestMap1 =
     {
         {'*','*','*','*','*','*','*','*','*','*'},
         {'*','*','*','*','*','*','*','*','*','*'},
@@ -38,11 +38,28 @@ void Game::AddLevels(void)
         {'*','*','*','*','*','*','*','*','*','*'},
         {'*','*','*','*','*','*','*','*','*','*'}
     };
+    int Teststeps1 = 40;
 
-    int steps = 40;
+    std::vector<std::vector<char>> TestMap2 =
+    {
+        {'*','*','*','*','*','*','*','*','*','*'},
+        {'*','*','*','*',' ',' ',' ','*','*','*'},
+        {'*','*','*','*','#','*',' ','*','*','*'},
+        {'*','*','*','X',' ',' ','P','*','*','*'},
+        {'*','*',' ',' ',' ','*','*','*','*','*'},
+        {'*','*',' ','#',' ',' ',' ','X','*','*'},
+        {'*','*','*','*','*','*','*','*','*','*'},
+        {'*','*','*','*','*','*','*','*','*','*'},
+        {'*','*','*','*','*','*','*','*','*','*'},
+        {'*','*','*','*','*','*','*','*','*','*'}
+    };
+    int Teststeps2 = 21;
 
-    Level TestLevel(maplevel, steps);
-    LevelList.push_back(TestLevel);
+    Level TestLevel1(TestMap1, Teststeps1);
+    Level TestLevel2(TestMap2, Teststeps2);
+
+    LevelList.push_back(TestLevel1);
+    LevelList.push_back(TestLevel2);
 }
 
 void Game::DrawBanner(void)

@@ -1,5 +1,5 @@
 # It's really not-so-good-sokoban
-It's just for learning purposes 
+It's just for learning purposes.  
 Mr Terry A. Davis wouldn't like it, it's overcomplicated.
 
 # Built with:
