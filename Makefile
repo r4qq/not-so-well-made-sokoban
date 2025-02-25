@@ -1,6 +1,15 @@
+ifeq ($(OS),Windows_NT)
+    RM = del
+    PATH_SEP = \\
+else
+    RM = rm -f
+    PATH_SEP = /
+endif
+
 CXX = g++
 CXXFLAGS = -Wall -g 
-TARGET = .\bin\test
+TARGET = .$(PATH_SEP)bin$(PATH_SEP)test
+SRCDIR = .$(PATH_SEP)src
 OBJS = sokoban.o Level.o Game.o 
 
 all: $(TARGET)
@@ -8,15 +17,14 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
 
-sokoban.o: .\src\sokoban.cpp .\src\sokoban.hpp .\src\Level.hpp
-	$(CXX) $(CXXFLAGS) -c .\src\sokoban.cpp 
+sokoban.o: $(SRCDIR)$(PATH_SEP)sokoban.cpp $(SRCDIR)$(PATH_SEP)sokoban.hpp $(SRCDIR)$(PATH_SEP)Level.hpp
+	$(CXX) $(CXXFLAGS) -c $(SRCDIR)$(PATH_SEP)sokoban.cpp 
 
-Level.o: .\src\Level.cpp .\src\Level.hpp
-	$(CXX) $(CXXFLAGS) -c .\src\Level.cpp 
+Level.o: $(SRCDIR)$(PATH_SEP)Level.cpp $(SRCDIR)$(PATH_SEP)Level.hpp
+	$(CXX) $(CXXFLAGS) -c $(SRCDIR)$(PATH_SEP)Level.cpp 
 
-Game.o: .\src\Game.cpp .\src\Game.hpp .\src\Level.hpp 
-	$(CXX) $(CXXFLAGS) -c .\src\Game.cpp 
+Game.o: $(SRCDIR)$(PATH_SEP)Game.cpp $(SRCDIR)$(PATH_SEP)Game.hpp $(SRCDIR)$(PATH_SEP)Level.hpp
+	$(CXX) $(CXXFLAGS) -c $(SRCDIR)$(PATH_SEP)Game.cpp 
 
 clean:
-	del $(OBJS)
-
+	$(RM) $(OBJS)

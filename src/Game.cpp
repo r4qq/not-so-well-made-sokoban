@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Level.hpp"
 
-#include <conio.h>
+#include "config.h" //gives getch()
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -74,7 +74,7 @@ void Game::DrawBanner(void)
 
 void Game::DrawMenu(void)
 {
-   system("cls");
+   clear();
    unsigned int wybor;
    DrawBanner();
    std::cout  << '\n';
