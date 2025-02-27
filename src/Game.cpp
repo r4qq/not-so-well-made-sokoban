@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Level.hpp"
 
-#include "config.h" //gives getch()
+#include "config.h" //gives getch() and other stuff. 
 #include <cstdlib>
 #include <iostream>
 #include <vector>
@@ -45,7 +45,7 @@ void Game::AddLevels(void)
         {'*','*','*','*','*','*','*','*','*','*'},
         {'*','*','*','*',' ',' ',' ','*','*','*'},
         {'*','*','*','*','#','*',' ','*','*','*'},
-        {'*','*','*','X',' ',' ','P','*','*','*'},
+        {'*','*','*','X',' ',' ','@','*','*','*'},
         {'*','*',' ',' ',' ','*','*','*','*','*'},
         {'*','*',' ','#',' ',' ',' ','X','*','*'},
         {'*','*','*','*','*','*','*','*','*','*'},
@@ -89,7 +89,7 @@ void Game::DrawMenu(void)
     case 0:
         return;
     default: 
-        if ((wybor - 1 > (int)LevelList.size())) 
+        if ((wybor - 1 > (unsigned int)LevelList.size())) 
         { 
             std::cout << "Nie ma takiego wyboru" << '\t';
             DrawMenu();
@@ -150,9 +150,9 @@ void Game::PlayerMovement(int dPX, int dPY, positionPoint &pos, std::vector<std:
 
  void Game::GameLoop(positionPoint startPos, std::vector<std::vector<char>> levelMap, std::vector<positionPoint> doneBoxes, int stepCount)
  {
-    bool levelDone;
-    char movement = NULL;
-    while (true)
+    bool levelDone = false;
+    char movement;
+    while (levelDone != true)
     {
         system("cls");
         RenderLevelDebug(levelMap, stepCount);
@@ -190,9 +190,9 @@ void Game::PlayerMovement(int dPX, int dPY, positionPoint &pos, std::vector<std:
 bool Game::IsLeveDone(std::vector<std::vector<char>> levelMap, std::vector<positionPoint> docks)
 {
     int doneBoxes = 0;
-    for (int i = 0; i < (int)docks.size(); i++)
+    for (const auto& dock : docks)
     {
-        if (levelMap[docks[i].x][docks[i].y] == DBOX)
+        if (levelMap[dock.x][dock.y] == DBOX)
             doneBoxes++;
     }
     if (doneBoxes == (int)docks.size())
@@ -207,11 +207,11 @@ bool Game::IsLeveDone(std::vector<std::vector<char>> levelMap, std::vector<posit
 
 void Game::RenderLevelDebug(std::vector<std::vector<char>> levelMap, int stepCount)
 {
-    for (auto i = 0; i < (int)levelMap.size(); i++)
+    for (const auto& row : levelMap)
     {
-        for (auto j = 0; j < (int)levelMap[0].size(); j++)
+        for (const auto& cell : row)
         {
-            std::cout << levelMap[i][j];
+            std::cout << cell;
         }
         std::cout << "\n";
     }

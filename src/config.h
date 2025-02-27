@@ -5,7 +5,7 @@
     #include <conio.h>
     #include <iostream>
 
-    void clear()
+    inline void clear()
     {
         system("cls");
     }
@@ -16,7 +16,7 @@
     #include <stdio.h>
     #include <iostream>
 
-    int _getch() 
+    inline int _getch() 
     {
         struct termios oldt, newt;
         int ch;
@@ -29,7 +29,7 @@
         return ch;
     }
 
-    void clear()
+    inline void clear()
     {
         system("clear");
     }

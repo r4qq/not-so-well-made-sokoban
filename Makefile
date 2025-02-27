@@ -7,7 +7,7 @@ else
 endif
 
 CXX = g++
-CXXFLAGS = -Wall -g 
+CXXFLAGS = -Wall -g -Werror
 TARGET = .$(PATH_SEP)bin$(PATH_SEP)test
 SRCDIR = .$(PATH_SEP)src
 OBJS = sokoban.o Level.o Game.o 
